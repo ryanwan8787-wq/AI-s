@@ -1,0 +1,55 @@
+{
+  "name": "desktop-companion",
+  "productName": "Desktop Companion",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Windows 11 3D desktop AI companion (Electron + Three.js/VRM + Python sidecar)",
+  "main": "./out/main/index.js",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "typecheck": "tsc -p tsconfig.node.json --noEmit && tsc -p tsconfig.web.json --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "sidecar:sync": "cd sidecar && uv sync --frozen",
+    "dist:win": "npm run build && electron-builder --win --x64",
+    "setup:electron": "install-electron",
+    "predev": "install-electron",
+    "test:coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@pixiv/three-vrm": "3.5.5",
+    "@pixiv/three-vrm-animation": "3.5.5",
+    "better-sqlite3": "13.0.3",
+    "electron-log": "5.4.4",
+    "koffi": "3.3.2",
+    "preact": "10.29.8",
+    "three": "0.180.0",
+    "zod": "4.6.5"
+  },
+  "optionalDependencies": {
+    "uiohook-napi": "1.5.5"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "2.10.6",
+    "@types/better-sqlite3": "9.6.0",
+    "@types/node": "24.19.0",
+    "@types/three": "0.180.0",
+    "@vitest/coverage-v8": "5.0.3",
+    "electron": "44.5.1",
+    "electron-builder": "26.17.0",
+    "electron-vite": "5.0.0",
+    "eslint": "10.11.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.0",
+    "vite": "7.3.6",
+    "vitest": "5.0.3"
+  },
+  "type": "module"
+}
