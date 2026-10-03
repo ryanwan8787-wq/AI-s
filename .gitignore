@@ -1,0 +1,14 @@
+node_modules/
+out/
+dist/
+release/
+*.log
+.vite/
+sidecar/.venv/
+sidecar/build/
+sidecar/dist/
+__pycache__/
+*.pyc
+.DS_Store
+*.tsbuildinfo
+coverage/

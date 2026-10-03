@@ -1,0 +1,38 @@
+[project]
+name = "companion-sidecar"
+version = "0.0.1"
+description = "Local STT (faster-whisper) + TTS (edge-tts) + GPU info (pynvml) sidecar for Desktop Companion"
+requires-python = ">=3.14,<3.15"
+dependencies = [
+  "faster-whisper==1.2.1",
+  "ctranslate2==4.8.2",
+  "edge-tts==7.2.8",
+  "nvidia-ml-py==13.615.71",   # 提供 `import pynvml`；PyPI 上的 `pynvml` 套件已改為薄包裝，官方建議直接用 nvidia-ml-py
+  "websockets==17.1",
+  "huggingface-hub>=1.33,<2",   # 2.0.0（2026-09-24）剛換 HTTP 堆疊為 httpx2，對本專案無收益 → 暫留 1.x 末版；進度攔截需驗證於階段 5
+  "numpy>=2.0,<3",
+]
+
+[project.optional-dependencies]
+# Windows 上 CTranslate2 需 CUDA 12 + cuDNN 9 的 DLL；以 pip wheel 形式隨 sidecar 打包，避免要求使用者安裝 CUDA Toolkit
+cuda = [
+  "nvidia-cublas-cu12>=12.4,<13",
+  "nvidia-cudnn-cu12>=9.1,<10",
+]
+
+[dependency-groups]
+dev = [
+  "pytest==9.1.1",
+  "pytest-asyncio==1.4.0",
+  "pyinstaller==6.22.3",
+]
+
+[tool.uv]
+environments = ["sys_platform == 'win32'", "sys_platform == 'linux'"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["companion_sidecar"]
